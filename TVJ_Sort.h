@@ -6,6 +6,10 @@
  * @licence: The MIT Licence
  * @compiler: At least C++/11
  * 
+ * @version 2.2 2021/03/10
+ * - Bug Fix (medium now supports pointers)
+ * - Improve Heap_Vector class
+ * 
  * @version 2.1 2021/03/09
  * - Add functions that support iterators
  * - promote 'int' into 'size_t'
@@ -27,13 +31,13 @@
 template<typename ValueType>
 class Heap_Vector {
 public:
-	Heap_Vector(size_t n = 32) :capacity(n), content_number(0), vec(new ValueType[n]) {}
+	Heap_Vector(size_t n = 32) : capacity(n), content_number(0), vec(new ValueType[n]) { }
 	~Heap_Vector() // destructor
 	{
 		delete[] vec; // free the dynamic array
 	}
 	// similar to the function of push_back in vector
-	void push_back(ValueType value)
+	void push_back(const ValueType& value)
 	{
 		if (content_number == capacity)
 		{
@@ -41,11 +45,15 @@ public:
 		}
 		vec[content_number++] = value;
 	}
-	ValueType operator [](size_t index)
+	inline const ValueType& operator [](size_t index) const
 	{
 		return vec[index];
 	}
-	size_t size()
+	inline ValueType& operator [](size_t index)
+	{
+		return vec[index];
+	}
+	inline size_t size() const
 	{
 		return content_number;
 	}
@@ -53,6 +61,8 @@ public:
 private:
 	ValueType* vec;
 	size_t capacity;
+
+protected:
 	size_t content_number;
 	void expand()
 	{
@@ -166,6 +176,19 @@ int my_pow(int n, int m)
  */
 template<typename T>
 inline auto medium(c_vec_iter<T>& a, c_vec_iter<T>& b, c_vec_iter<T>& c)
+{
+	if ((*a <= *b && *a >= *c) || (*a >= *b && *a <= *c)) return a;
+	else if ((*b <= *a && *b >= *c) || (*b >= *a && *b <= *c)) return b;
+	else return c;
+}
+
+/**
+ * medium (pointer)
+ * return the medium one of the three,
+ * used for pointers
+ */
+template<typename T>
+inline auto medium(T* a,T* b, T* c)
 {
 	if ((*a <= *b && *a >= *c) || (*a >= *b && *a <= *c)) return a;
 	else if ((*b <= *a && *b >= *c) || (*b >= *a && *b <= *c)) return b;
