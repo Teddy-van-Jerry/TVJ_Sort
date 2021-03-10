@@ -3,7 +3,7 @@ It provides many kinds of sort functions for STL library containers and arrays.
 
 ## Functions
 The table below provides the table of parameters functions support.
-|Functions|Normal Array Pointers|STL Cointaners|STL Cointaners iterators|STL Cointaners and their iterators|
+|Functions|Normal Array Pointers|STL Containers|STL Containers iterators|STL Containers and their iterators|
 |-|:-:|:-:|:-:|:-:|
 |`bubble_sort`|$\bullet$|$\circ$|$\circ$|$\times$|
 |`insertion_sort`|$\bullet$|$\circ$|$\circ$|$\times$|
