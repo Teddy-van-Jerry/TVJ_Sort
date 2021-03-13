@@ -1042,4 +1042,4 @@ void quick_sort_pro_safe(T& vec)
 
 #endif // !_TVJ_SORT_
 
-// ALL RIGHTS RESERVED (C) 2020 Teddy van Jerry
+// ALL RIGHTS RESERVED (C) 2021 Teddy van Jerry
