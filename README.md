@@ -10,6 +10,7 @@ The table below provides the table of parameters functions support.
 |`quick_sort`|$\bullet$|$\circ$|$\times$|$\circ$|
 |`quick_sort_pro`|$\bullet$|$\circ$|$\circ$|$\times$|
 |`quick_sort_pro_safe`|$\bullet$|$\circ$|$\circ$|$\times$|
+|`heap_sort`|$\bullet$|$\bullet$|$\bullet$|$\times$|
 |`LSD_sort`|$\times$|$\circ$|$\times$|$\times$|
 |`LSD_sort_pro`|$\times$|$\circ$|$\times$|$\times$|
 |`LSD_sort_pro_heap1`|$\times$|$\circ$|$\times$|$\times$|
@@ -29,6 +30,7 @@ The following table gives the STL container that functions support.
 |`quick_sort`|$\bullet$|$\bullet$|$\times$|$\times$|$\bullet$|
 |`quick_sort_pro`|$\bullet$|$\bullet$|$\times$|$\times$|$\bullet$|
 |`quick_sort_pro_safe`|$\bullet$|$\bullet$|$\times$|$\times$|$\bullet$|
+|`heap_sort`|$\bullet$|$\bullet$|$\bullet$|$\bullet$|$\bullet$|
 |`LSD_sort`|$\bullet$|$\bullet$|$\times$|$\times$|$\times$|
 |`LSD_sort_pro`|$\bullet$|$\bullet$|$\times$|$\times$|$\times$|
 |`LSD_sort_pro_heap1`|$\bullet$|$\bullet$|$\times$|$\times$|$\bullet$|
