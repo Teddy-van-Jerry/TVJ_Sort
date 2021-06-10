@@ -6,6 +6,9 @@
  * @licence: The MIT Licence
  * @compiler: At least C++/11
  *
+ * @version 2021/06/10
+ * - Add heap_sort
+ * 
  * @version 2021/03/09
  * - Modify to fit the new TVJ_Sort.h
  *
@@ -25,6 +28,12 @@
 #include "TVJ_Timer.h"
 using namespace std;
 
+#define _print_vec \
+for (const auto c_ : temp_vec) { \
+	std::cout << c_ << ' '; \
+} \
+std::cout << std::endl;
+
 void random(size_t n, int min_one, int max_one, vector<int>& ran)
 {
 	uniform_int_distribution<int> u(min_one, max_one);
@@ -36,7 +45,7 @@ void random(size_t n, int min_one, int max_one, vector<int>& ran)
 }
 
 // tset whether the sort is correct
-void checkSorted(vector<int> to_test, int ck)
+inline void checkSorted(vector<int> to_test, int ck)
 {
 	int ck_now = 0;
 	for (auto iter = to_test.cbegin(); iter != to_test.cend() - 1; iter++)
@@ -57,7 +66,7 @@ void checkSorted(vector<int> to_test, int ck)
 	cout << "(succeeded) ";
 }
 
-int main(int argc, int** argv)
+int main(int argc, char** argv)
 {
 	TVJ_Timer timer("s.9");
 	size_t length;
@@ -82,6 +91,7 @@ int main(int argc, int** argv)
 		double duration_time = timer.durationTimeDouble();
 		checkSorted(temp_vec, ck);
 		cout << duration_time << " seconds." << endl;
+		// _print_vec;
 	}
 
 	// LSD sort pro heap1
@@ -93,6 +103,7 @@ int main(int argc, int** argv)
 		double duration_time = timer.durationTimeDouble();
 		checkSorted(temp_vec, ck);
 		cout << duration_time << " seconds." << endl;
+		// _print_vec;
 	}
 
 	// LSD sort pro heap2
@@ -111,6 +122,7 @@ int main(int argc, int** argv)
 			checkSorted(temp_vec, ck);
 			cout << duration_time << " seconds." << endl;
 		}
+		// _print_vec;
 	}
 
 	// LSD sort pro
@@ -122,6 +134,7 @@ int main(int argc, int** argv)
 		double duration_time = timer.durationTimeDouble();
 		checkSorted(temp_vec, ck);
 		cout << duration_time << " seconds." << endl;
+		// _print_vec;
 	}
 
 	// LSD sort
@@ -133,6 +146,7 @@ int main(int argc, int** argv)
 		double duration_time = timer.durationTimeDouble();
 		checkSorted(temp_vec, ck);
 		cout << duration_time << " seconds." << endl;
+		// _print_vec;
 	}
 
 	// MSD sort pro
@@ -144,6 +158,7 @@ int main(int argc, int** argv)
 		double duration_time = timer.durationTimeDouble();
 		checkSorted(temp_vec, ck);
 		cout << duration_time << " seconds." << endl;
+		// _print_vec;
 	}
 
 	// MSD sort
@@ -155,6 +170,7 @@ int main(int argc, int** argv)
 		double duration_time = timer.durationTimeDouble();
 		checkSorted(temp_vec, ck);
 		cout << duration_time << " seconds." << endl;
+		// _print_vec;
 	}
 
 	// quick sort pro safe
@@ -166,6 +182,7 @@ int main(int argc, int** argv)
 		double duration_time = timer.durationTimeDouble();
 		checkSorted(temp_vec, ck);
 		cout << duration_time << " seconds." << endl;
+		// _print_vec;
 	}
 
 	// quick sort pro
@@ -177,6 +194,7 @@ int main(int argc, int** argv)
 		double duration_time = timer.durationTimeDouble();
 		checkSorted(temp_vec, ck);
 		cout << duration_time << " seconds." << endl;
+		// _print_vec;
 	}
 
 	// quick sort
@@ -188,6 +206,19 @@ int main(int argc, int** argv)
 		double duration_time = timer.durationTimeDouble();
 		checkSorted(temp_vec, ck);
 		cout << duration_time << " seconds." << endl;
+		// _print_vec;
+	}
+
+	// heap sort
+	{
+		vector<int> temp_vec = ran;
+		cout << setw(21) << "Heap_sort: ";
+		timer.restart();
+		heap_sort(temp_vec);
+		double duration_time = timer.durationTimeDouble();
+		checkSorted(temp_vec, ck);
+		cout << duration_time << " seconds." << endl;
+		// _print_vec;
 	}
 
 	// insertion sort
@@ -199,6 +230,7 @@ int main(int argc, int** argv)
 		double duration_time = timer.durationTimeDouble();
 		checkSorted(temp_vec, ck);
 		cout << duration_time << " seconds." << endl;
+		// _print_vec;
 	}
 
 	// bubble sort
@@ -210,6 +242,7 @@ int main(int argc, int** argv)
 		double duration_time = timer.durationTimeDouble();
 		checkSorted(temp_vec, ck);
 		cout << duration_time << " seconds." << endl;
+		// _print_vec;
 	}
 
 	return 0;

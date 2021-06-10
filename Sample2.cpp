@@ -6,6 +6,9 @@
  * @licence: The MIT Licence
  * @compiler: At least C++/11
  *
+ * @version 2021/06/10
+ * - Add heap_sort
+ * 
  * @version 2021/03/09
  * - Initial version
  *
@@ -61,6 +64,12 @@ int main(int argc, char** argv)
 	array<char, 4> arr3 = { 'a', 'b', 'A', '0' };
 	LSD_sort_pro_heap1(arr3);
 	print(arr3);
+
+	// Example 6
+	list<int> list1{ 4, 2, 6, 0, -12 };
+	heap_sort(list1);
+	print(list1);
+	return 0;
 }
 
 // ALL RIGHTS RESERVED (C) 2021 Teddy van Jerry

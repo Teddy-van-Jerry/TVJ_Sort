@@ -6,6 +6,9 @@
  * @licence: The MIT Licence
  * @compiler: At least C++/11
  * 
+ * @version 2.3 2021/06/10
+ * - Add heap_sort
+ * 
  * @version 2.2 2021/03/10
  * - Bug Fix (medium now supports pointers)
  * - Improve Heap_Vector class
@@ -31,55 +34,59 @@
 template<typename ValueType>
 class Heap_Vector {
 public:
-	Heap_Vector(size_t n = 32) : capacity(n), content_number(0), vec(new ValueType[n]) { }
+	Heap_Vector(size_t n = 32) : capacity_(n), size_(0), vec_(new ValueType[n]) { }
 	~Heap_Vector() // destructor
 	{
-		delete[] vec; // free the dynamic array
+		delete[] vec_; // free the dynamic array
 	}
 	// similar to the function of push_back in vector
 	void push_back(const ValueType& value)
 	{
-		if (content_number == capacity)
+		if (size_ == capacity_)
 		{
 			expand();
 		}
-		vec[content_number++] = value;
+		vec_[size_++] = value;
 	}
 	inline const ValueType& operator [](size_t index) const
 	{
-		return vec[index];
+		return vec_[index];
 	}
 	inline ValueType& operator [](size_t index)
 	{
-		return vec[index];
+		return vec_[index];
 	}
 	inline size_t size() const
 	{
-		return content_number;
+		return size_;
 	}
 
 private:
-	ValueType* vec;
-	size_t capacity;
+	ValueType* vec_;
+	size_t capacity_;
 
 protected:
-	size_t content_number;
+	size_t size_;
 	void expand()
 	{
 		// 1. ask for new space for the array
-		ValueType* new_vec = new ValueType[2 * capacity];
+		ValueType* new_vec = new ValueType[2 * capacity_];
 		// 2. copy the values over
-		for (size_t i = 0; i != content_number; i++)
-			new_vec[i] = vec[i];
+		for (size_t i = 0; i != size_; i++)
+			new_vec[i] = vec_[i];
 		// 3. delete the old array
-		delete[] vec;
+		delete[] vec_;
 		// 4. point vec to new array
-		vec = new_vec;
+		vec_ = new_vec;
 		// 5. update capacity (twice the capacity)
-		capacity *= 2;
+		capacity_ *= 2;
 	}
 };
 #endif // !_HEAP_VECTOR_
+
+#ifndef _TVJ_HEAP_
+#define _TVJ_HEAP_
+#endif
 
 #ifndef _TVJ_SORT_
 #define _TVJ_SORT_
@@ -986,8 +993,66 @@ void LSD_sort_pro_heap2(T& vec)
 }
 
 /**
+ * heap adjust
+ * adjust [i_beg, i_end) into max heap
+ * when [i_beg + 1, i_end) is already adjusted
+ * return void
+ */
+template<typename T>
+void heap_adjust(std::vector<T>& vec, size_t i_beg, size_t i_end)
+{
+	auto rc = vec[i_beg];
+	for (size_t i = 2 * i_beg; i < i_end; i *= 2)
+	{
+		if (i + 1 != i_end && vec[i] < vec[i + 1]) i++; // i is now the larger one of two children
+		if (rc >= vec[i]) break;                   // at the right place
+		vec[i_beg] = vec[i];
+		i_beg = i;
+	}
+	vec[i_beg] = rc; // insert the element here
+}
+
+/**
+ * create heap
+ * create the heap (adjust all)
+ * return void
+ */
+template<typename T>
+void create_heap(std::vector<T>& vec)
+{
+	auto vec_size = vec.size();
+	for (auto i = vec_size / 2; i != 0; i--)
+	{
+		heap_adjust(vec, i - 1, vec_size);
+	}
+}
+
+/**
+ * heap sort
+ * Argument 1: the begin iterator
+ * Argument 2: the end iterator
+ * return void
+ */
+template<typename T>
+void heap_sort(vec_iter<T> i, vec_iter<T> j)
+{
+	std::vector<typename T::value_type> heap(i, j);
+	create_heap(heap);
+	for (size_t index = heap.size(); index > 0; index--)
+	{
+		my_swap(heap[0], heap[index - 1]); // swap the top element with the last element
+		heap_adjust(heap, 0, index - 1);   // adjust the remaining elements of heap into max heap
+	}
+	auto heap_iter = heap.begin();
+	for (auto iter = i; iter != j; iter++, heap_iter++)
+	{
+		*iter = *heap_iter;
+	}
+}
+
+/**
  * bubble sort
- * Only for STL containers
+ * Only for containers with iterators
  * return void
  */
 template<typename T>
@@ -998,7 +1063,7 @@ void bubble_sort(T& vec)
 
 /**
  * insertion sort
- * Only for STL containers
+ * Only for containers with iterators
  * return void
  */
 template<typename T>
@@ -1009,7 +1074,7 @@ void insertion_sort(T& vec)
 
 /**
  * quick sort
- * Only for STL containers
+ * Only for containers with iterators
  * return void
  */
 template<typename T>
@@ -1020,7 +1085,7 @@ void quick_sort(T& vec)
 
 /**
  * quick sort pro
- * Only for STL containers
+ * Only for containers with iterators
  * return void
  */
 template<typename T>
@@ -1031,13 +1096,24 @@ void quick_sort_pro(T& vec)
 
 /**
  * quick sort pro safe
- * Only for STL containers
+ * Only for containers with iterators
  * return void
  */
 template<typename T>
 void quick_sort_pro_safe(T& vec)
 {
 	quick_sort_pro_safe<T>(vec.begin(), vec.end());
+}
+
+/**
+ * heap sort
+ * Only for containers with iterators
+ * return void
+ */
+template<typename T>
+void heap_sort(T& vec)
+{
+	heap_sort<T>(vec.begin(), vec.end());
 }
 
 #endif // !_TVJ_SORT_
