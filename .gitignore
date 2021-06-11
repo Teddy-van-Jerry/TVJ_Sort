@@ -41,3 +41,6 @@
 *.filters
 *.user
 Test.cpp
+
+# README
+latex_in_md.txt

@@ -1,10 +1,5 @@
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({ tex2jax: {inlineMath: [['$', '$']]}, messageStyle: "none" });
-</script>
-
 # TVJ_Sort
-It provides many kinds of sort functions for STL library containers and arrays.
+It provides many kinds of sort functions for STL library containers (and also those containers supporting `iterator`s) and arrays.
 
 ## Functions
 The table below provides the table of parameters functions support.
@@ -51,3 +46,6 @@ The following table gives the STL container that functions support.
 * Using STL container iterators, container element has to be specified in the function.
 * Here are two sample `.cpp` files, which can be an easy introduction to TVJ_Sort.
 * This project uses TVJ_Timer.h in my repository [TVJ_Timer](https://github.com/Teddy-van-Jerry/TVJ_Timer).
+
+## Notice for Developers
+* The sorting method is still under developing. Now the focus is on the support on `list` or `forward_list` (This can be achieved, as is shown in my repository [TVJ_Forward_List](https://github.com/Teddy-van-Jerry/TVJ_Forward_List))
