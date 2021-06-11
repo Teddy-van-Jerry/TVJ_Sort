@@ -6,6 +6,9 @@
  * @licence: The MIT Licence
  * @compiler: At least C++/11
  * 
+ * @version 2.4 2021/06/11
+ * - Add the pointer version of heap_sort
+ * 
  * @version 2.3 2021/06/10
  * - Add heap_sort
  * 
@@ -1047,6 +1050,28 @@ void heap_sort(vec_iter<T> i, vec_iter<T> j)
 	for (auto iter = i; iter != j; iter++, heap_iter++)
 	{
 		*iter = *heap_iter;
+	}
+}
+
+/**
+ * heap sort
+ * Argument 1: the begin pointer
+ * Argument 2: the end pointer
+ * return void
+ */
+template<typename T>
+void heap_sort(T* i, T* j)
+{
+	std::vector<T&> heap;
+	for (auto iter = i; i != j; iter++)
+	{
+		heap.push_back(*iter);
+	}
+	create_heap(heap);
+	for (size_t index = heap.size(); index > 0; index--)
+	{
+		my_swap(heap[0], heap[index - 1]); // swap the top element with the last element
+		heap_adjust(heap, 0, index - 1);   // adjust the remaining elements of heap into max heap
 	}
 }
 
